@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="21.811" height="21.811" viewBox="0 0 21.811 21.811">
+  <g id="Group_1670" data-name="Group 1670" transform="translate(-23 -172.029)">
+    <circle id="Ellipse_536" data-name="Ellipse 536" cx="10.906" cy="10.906" r="10.906" transform="translate(23 172.029)" fill="#fff"/>
+    <g id="icon-trash" transform="translate(29.092 176.446)">
+      <path id="path" d="M567.454,657v5.464a1.991,1.991,0,0,1-1.991,1.991h-3.473A1.991,1.991,0,0,1,560,662.464V657" transform="translate(-559.006 -653.024)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="path-2" data-name="path" d="M563.844,650.1a1.1,1.1,0,0,1,1.1-1.1h.353a1.1,1.1,0,0,1,1.1,1.1" transform="translate(-560.443 -649)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="line" d="M0,0H9.442" transform="translate(0 2.485)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-width="1"/>
+      <line id="line-2" data-name="line" y2="4.292" transform="translate(3.433 4.563)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line id="line-3" data-name="line" y2="4.292" transform="translate(6.009 4.563)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

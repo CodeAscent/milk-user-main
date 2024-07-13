@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="315" height="60" viewBox="0 0 315 60">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="mask" width="315" height="60" rx="8" fill="#f0f4f8"/>
+    </clipPath>
+  </defs>
+  <g id="edit-delete" clip-path="url(#clip-path)">
+    <g id="edit-delete-2" data-name="edit-delete">
+      <g id="delete" transform="translate(-30 -229)">
+        <path id="rectangle" d="M0,0H52a8,8,0,0,1,8,8V52a8,8,0,0,1-8,8H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(285 229)" fill="#a6bcd0" opacity="0.6"/>
+        <g id="icon-trash" transform="translate(306 247)">
+          <path id="path" d="M575,657v10.994A4.005,4.005,0,0,1,570.994,672h-6.988A4.005,4.005,0,0,1,560,667.994V657" transform="translate(-558 -649)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <path id="path-2" data-name="path" d="M563.844,651.208A2.208,2.208,0,0,1,566.052,649h.71a2.209,2.209,0,0,1,2.208,2.208" transform="translate(-557 -649)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <path id="line" d="M0,0H19" transform="translate(0 5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1"/>
+          <line id="line-2" data-name="line" y2="8" transform="translate(7 10)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <line id="line-3" data-name="line" y2="8" transform="translate(12 10)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

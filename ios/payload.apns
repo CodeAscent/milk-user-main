@@ -1,0 +1,13 @@
+{
+  "aps": {
+    "alert": {
+      "title": "Sample Title",
+      "body": "Sample body text for the notification."
+    },
+    "badge": 1,
+    "sound": "default"
+  },
+  "custom": {
+        "a": "{\"blog\":\"53\"}", 
+    }
+}

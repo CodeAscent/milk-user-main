@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="23.301" height="15.937" viewBox="0 0 23.301 15.937">
+  <g id="icon-delivery" transform="translate(0.5 0.5)">
+    <path id="path" d="M459,560" transform="translate(-443.72 -548.85)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="path-2" data-name="path" d="M459.5,558.063h3.3v-4.951a3.308,3.308,0,0,0-3.309-3.309h-3.3v0a3.308,3.308,0,0,0-3.309-3.309h-9.076a3.308,3.308,0,0,0-3.309,3.309v8.255" transform="translate(-440.5 -546.5)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <circle id="ellipse" cx="1.681" cy="1.681" r="1.681" transform="translate(3.169 11.574)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <ellipse id="ellipse-2" data-name="ellipse" cx="1.529" cy="1.681" rx="1.529" ry="1.681" transform="translate(14.175 11.574)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="line" x1="1.529" transform="translate(0.112 11.574)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="line-2" data-name="line" x1="3.974" transform="translate(8.366 11.574)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="path-3" data-name="path" d="M466.257,553.5H462.5v2.438h4.13" transform="translate(-444.329 -547.718)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="line-3" data-name="line" y2="5.809" transform="translate(15.704 3.319)" fill="none" stroke="#3f305e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+  </g>
+</svg>

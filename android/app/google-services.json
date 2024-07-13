@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "1078427920911",
+    "project_id": "mamas-milk",
+    "storage_bucket": "mamas-milk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078427920911:android:230e462cccb43466eb917a",
+        "android_client_info": {
+          "package_name": "com.gitcs.driverapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsOFhcJthdacVOfTC3S48X_4puMcFEmR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078427920911:android:27508c99037d9712eb917a",
+        "android_client_info": {
+          "package_name": "com.mamamilk.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsOFhcJthdacVOfTC3S48X_4puMcFEmR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078427920911:android:0ad0bee82749e766eb917a",
+        "android_client_info": {
+          "package_name": "subscription.app.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsOFhcJthdacVOfTC3S48X_4puMcFEmR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
+  <g id="Group_1615" data-name="Group 1615" transform="translate(5.424 121.625)">
+    <circle id="Ellipse_537" data-name="Ellipse 537" cx="13.5" cy="13.5" r="13.5" transform="translate(-5.424 -121.625)" fill="#0c284c"/>
+    <g id="icon-refresh" transform="translate(14.041 -112.625) rotate(90)">
+      <line id="line" x1="1.398" y1="1.398" transform="translate(3.415)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8"/>
+      <path id="path" d="M351.777,697.5a1.912,1.912,0,0,1-1.912-1.912v-4.846a1.912,1.912,0,0,1,1.912-1.912h2.9l-1.4,1.4" transform="translate(-349.865 -687.429)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8"/>
+      <line id="line-2" data-name="line" x2="1.398" y2="1.398" transform="translate(3.795 10.067)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8"/>
+      <path id="path-2" data-name="path" d="M358.644,696.1l-1.4,1.4h2.962a1.912,1.912,0,0,0,1.912-1.912v-4.846a1.912,1.912,0,0,0-1.912-1.912" transform="translate(-353.45 -687.429)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8"/>
+    </g>
+  </g>
+</svg>
