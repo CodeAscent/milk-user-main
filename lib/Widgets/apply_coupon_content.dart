@@ -234,12 +234,13 @@ class _ApplyCouponContentState extends StateMVC<ApplyCouponContent> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              width: 75,
+              width: 95,
               height: 45,
               color: MyColor.commonColorSet2,
               child: Center(
                 child: RichText(
                   textAlign: TextAlign.center,
+                  maxLines: 2,
                   text: TextSpan(
                     children: [
                       TextSpan(
@@ -252,6 +253,7 @@ class _ApplyCouponContentState extends StateMVC<ApplyCouponContent> {
                                   ? Colors.white
                                   : MyColor.textPrimaryLightColor,
                               height: 1.8,
+                              overflow: TextOverflow.ellipsis,
                             ),
                       ),
                       TextSpan(
@@ -272,7 +274,7 @@ class _ApplyCouponContentState extends StateMVC<ApplyCouponContent> {
               ),
             ),
             Container(
-              width: size.width - 235,
+              width: size.width - 255,
               child: Text(
                 description ?? '',
                 textAlign: TextAlign.center,

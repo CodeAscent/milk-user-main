@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:water/Utils/Router/route_path.dart';
 import 'package:water/Utils/ThemeData/themeColors.dart';
@@ -110,12 +111,14 @@ class _YourOrdersState extends StateMVC<YourOrders> {
                                                               .product!
                                                               .image ??
                                                           ""),
-                                              orderTitle: orderListItem
-                                                  .productOrders!
-                                                  .first
-                                                  .product!
-                                                  .name,
+                                              orderTitle: "OrderId: " +
+                                                  orderListItem.id.toString(),
                                               orderListItem: orderListItem,
+                                              orderTotal: orderListItem
+                                                  .finalAmount
+                                                  .toString(),
+                                              orderDate: orderListItem.createdAt
+                                                  .toString(),
                                               orderNumber:
                                                   UtilsHelper.getString(context,
                                                           "order_text") +
@@ -172,7 +175,7 @@ class _YourOrdersState extends StateMVC<YourOrders> {
           Radius.circular(8),
         ),
         child: Container(
-          height: 60,
+          //   height: 60,
           color: MyColor.coreBackgroundColor,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -191,13 +194,15 @@ class _YourOrdersState extends StateMVC<YourOrders> {
                           child: Image.network(orderImage!),
                         ),
                       ),
-                      SizedBox(width: 5),
+                      SizedBox(width: 10),
                       Expanded(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            SizedBox(height: 20),
                             Text(
-                              orderTitle! + 'dcdicd cod cdoc' ?? "",
+                              orderTitle ?? "",
                               style: Theme.of(context)
                                   .textTheme
                                   .displaySmall
@@ -211,6 +216,22 @@ class _YourOrdersState extends StateMVC<YourOrders> {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
+                            Text(
+                              "Amount: " + orderTotal.toString(),
+                              style: TextStyle(
+                                color: MyColor.textPrimaryDarkColor,
+                              ),
+                            ),
+                            Text(
+                              orderDate == null
+                                  ? ''
+                                  : DateFormat.yMMMd()
+                                      .format(DateTime.parse(orderDate)),
+                              style: TextStyle(
+                                color: MyColor.textPrimaryDarkColor,
+                              ),
+                            ),
+                            SizedBox(height: 20),
                           ],
                         ),
                       ),
