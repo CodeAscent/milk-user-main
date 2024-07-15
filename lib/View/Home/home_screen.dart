@@ -408,7 +408,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  UtilsHelper.getString(context, 'order'),
+                                  UtilsHelper.getString(context, 'product'),
                                   style: Theme.of(context)
                                       .textTheme
                                       .displaySmall
