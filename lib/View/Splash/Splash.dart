@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:water/Utils/Router/route_path.dart';
 import 'package:water/Utils/ThemeData/themeColors.dart';
 import 'package:water/Utils/local_data/app_state.dart';
@@ -19,12 +20,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   AuthController authController = AuthController();
   LocalDataStorage? localDataStorage;
+  String locationMessage = "";
 
   @override
   void initState() {
     super.initState();
     localDataStorage = LocalDataStorage();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await showLocationPermissionDialog(navkey.currentState!.context);
+
       print("Splash Screen");
       print(get.hasData('url').toString());
       print(get.read('url').toString());
@@ -39,11 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
           appState.languageKeys = await settingRepo
               .getKeysLists(appState.currentLanguageCode.value);
           setState(() {});
-          // EasyLocalization.of(context)?.setLocale(
-          //   Locale(
-          //       _languageItem.languageCode!,
-          //       _languageItem.languageCode == "ar" ? 'AE' : 'US'));
-        }
+         }
 
         if (appState.userModel.id != null) {
           //await getCurrentUser();
@@ -60,6 +60,66 @@ class _SplashScreenState extends State<SplashScreen> {
       });
       // });
     });
+  }
+
+  Future showLocationPermissionDialog(BuildContext context) async {
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Location Permission Information'),
+          content: const Text(
+              'We need your location information to navigate drivers to the exact delivery location even when app is closed or not in use.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _getCurrentLocation();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Check if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      setState(() {
+        locationMessage = "Location services are disabled.";
+      });
+      return;
+    }
+
+    // Check location permissions.
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        setState(() {
+          locationMessage = "Location permissions are denied";
+        });
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      setState(() {
+        locationMessage = "Location permissions are permanently denied.";
+      });
+      return;
+    }
+
+    // Get the current location.
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
   }
 
   @override

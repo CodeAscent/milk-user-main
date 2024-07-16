@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -26,6 +27,7 @@ GlobalKey<NavigatorState> navkey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -76,66 +78,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String locationMessage = "";
-
-  Future<void> _getCurrentLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Check if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      setState(() {
-        locationMessage = "Location services are disabled.";
-      });
-      return;
-    }
-
-    // Check location permissions.
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        setState(() {
-          locationMessage = "Location permissions are denied";
-        });
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      setState(() {
-        locationMessage = "Location permissions are permanently denied.";
-      });
-      return;
-    }
-
-    // Get the current location.
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-  }
-
-  void showLocationPermissionDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Location Permission Information'),
-          content: const Text(
-              'We need your location information to navigate drivers to the exact delivery location even when app is closed or not in use.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   void initState() {
     super.initState();
@@ -166,14 +108,6 @@ class _MyAppState extends State<MyApp> {
       result.notification.display();
       await notificationOpener(result);
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      Future.delayed(Duration.zero, () {
-        showLocationPermissionDialog(navkey.currentState!.context);
-      });
-    });
-
-    _getCurrentLocation();
   }
 
   Future<void> notificationOpener(OSNotificationClickEvent result,
@@ -225,6 +159,7 @@ class _MyAppState extends State<MyApp> {
               valueListenable: appState.currentLanguageCode,
               builder: (context, String _languageCode, _) {
                 final botToastBuilder = BotToastInit();
+
                 return ValueListenableBuilder(
                     valueListenable: darkMode,
                     builder: (context, theme, child) {
@@ -233,6 +168,7 @@ class _MyAppState extends State<MyApp> {
                           ? SystemUiOverlayStyle.dark
                               .copyWith(statusBarColor: Colors.white12)
                           : SystemUiOverlayStyle.light);
+
                       return MaterialApp(
                         title: "Mama'S Milk",
                         navigatorKey: navkey,
