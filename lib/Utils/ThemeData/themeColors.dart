@@ -105,7 +105,7 @@ class MyColor {
   ///
 
   static final Color darkBlue = Color.fromRGBO(6, 40, 61, 1);
-  static final Color darkYellow = Color.fromRGBO(175, 122, 179, 1);
+  static final Color darkYellow = Color(0xFF359ed8);
   static final Color lightBackground = Color(0xffF0F4F8);
   static final Color lightBlue = Color(0xffFA6BCD0);
   static final Color switchColor = Color.fromRGBO(6, 40, 61, 1);

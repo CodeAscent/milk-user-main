@@ -316,6 +316,13 @@ class Product {
         } else {
           return 0;
         }
+      case 'flexible':
+        print('---------------> iam here7');
+        if (selectedDates != null) {
+          return selectedDates!.length;
+        } else {
+          return 0;
+        }
       default:
         return 1;
     }
