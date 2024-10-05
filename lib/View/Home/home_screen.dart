@@ -34,7 +34,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
   }
 
   late HomeController con;
-  CarouselController _carouselController = CarouselController();
+  CarouselSliderController _carouselController = CarouselSliderController();
   int _currentIndex = 0;
   TextEditingController scontroller = TextEditingController();
 

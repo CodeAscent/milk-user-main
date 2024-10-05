@@ -39,8 +39,11 @@ Future<CommonResponse> addressAddUpdate(AddressItem addressItem) async {
 
   try {
     d.Response response;
+    print(addressItem.toJson());
+
     response = await dio.post(Urls.addressAddUpdate,
         data: addressItem.toJson(), options: d.Options(headers: headerData));
+
     if (response.statusCode == 200) {
       print(response.data['data']);
       CommonResponse commonResponse = CommonResponse.fromJson(response.data);

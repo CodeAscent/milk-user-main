@@ -6,6 +6,7 @@ import 'package:water/Utils/Router/route_path.dart';
 import 'package:water/Utils/ThemeData/themeColors.dart';
 import 'package:water/Utils/UtilHelper.dart';
 import 'package:water/Utils/local_data/app_state.dart';
+import 'package:water/View/Checkout/checkout.dart';
 
 import 'package:water/Widgets/CommonButton.dart';
 import 'package:water/Widgets/header.dart';
@@ -116,6 +117,9 @@ class _PickAddressState extends State<PickAddress> {
                                     fillColor: MyColor.white,
                                     border: InputBorder.none,
                                   ),
+                                  onChanged: (value) {
+                                    setState(() {});
+                                  },
                                 ),
                               ),
                             ],
@@ -371,7 +375,6 @@ class _PickAddressState extends State<PickAddress> {
                           SizedBox(
                             height: 7,
                           ),
-                          
                           Container(
                             height: 85,
                             padding: EdgeInsets.symmetric(horizontal: 10),
@@ -397,8 +400,9 @@ class _PickAddressState extends State<PickAddress> {
                             width: size.width,
                             child: commonButton(
                               onPress: () {
-                                Navigator.of(context)
-                                    .pushNamed(RoutePath.checkout_pay);
+                                Navigator.push(context, MaterialPageRoute(builder:(context) {
+                                  return Checkout();
+                                },));
                               },
                               prefixPath: 'assets/icon_arrow.svg',
                               title: UtilsHelper.getString(

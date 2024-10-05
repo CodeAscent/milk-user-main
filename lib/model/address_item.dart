@@ -15,6 +15,11 @@ class AddressItem {
     this.userId,
     this.createdAt,
     this.updatedAt,
+    this.customerName,
+    this.flatNo,
+    this.wing,
+    this.streetName,
+    this.locality,
   });
 
   int? id;
@@ -32,6 +37,11 @@ class AddressItem {
   int? userId;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String? customerName;
+  String? flatNo;
+  String? wing;
+  String? streetName;
+  String? locality;
 
   factory AddressItem.fromJson(Map<String, dynamic> json) => AddressItem(
         id: json["id"],
@@ -51,6 +61,11 @@ class AddressItem {
         updatedAt: json["updated_at"] != null
             ? DateTime.parse(json["updated_at"])
             : null,
+        customerName: json['customer_name'],
+        flatNo: json['flat_no'],
+        wing: json['wing'],
+        streetName: json['street_name'],
+        locality: json['locality'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -66,6 +81,11 @@ class AddressItem {
         "latitude": latitude,
         "longitude": longitude,
         "is_default": isDefault,
+        "customer_name": customerName,
+        "flat_no": flatNo,
+        "wing": wing,
+        "street_name": streetName,
+        "locality": locality,
 //    "user_id": userId,
 //    "created_at": createdAt?.toIso8601String(),
 //    "updated_at": updatedAt?.toIso8601String(),

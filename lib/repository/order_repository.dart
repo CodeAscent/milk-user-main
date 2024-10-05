@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart' as d;
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
 import 'package:water/Utils/error_handling.dart';
 import 'package:water/Utils/local_data/app_state.dart';
 import 'package:water/Utils/params.dart';
 import 'package:water/Utils/urls.dart';
+import 'package:water/http_wrapper.dart';
 import 'package:water/model/common/common.dart';
+import 'package:http/http.dart' as http;
 
 d.Dio dio = new d.Dio();
 
@@ -14,28 +19,30 @@ Future<CommonResponse> orderPlace(Map<String, dynamic> requestData) async {
     Params.apiToken: appState.apiToken,
   };
   print('========== Api token ==============');
-print(appState.apiToken);
+  print(appState.apiToken);
   print(Urls.orderPlace);
   print(requestData);
   try {
     d.Response response;
     response = await dio.post(Urls.orderPlace,
-        data: requestData, options: d.Options(headers: headerData,
-        responseType: ResponseType.json,
-        validateStatus: (status) => true));
+        data: requestData,
+        options: d.Options(
+            headers: headerData,
+            responseType: ResponseType.json,
+            validateStatus: (status) => true));
     if (response.statusCode == 200) {
       print(response.data['data']);
 
       CommonResponse commonResponse = CommonResponse.fromJson(response.data);
       return commonResponse;
     } else {
-       print('----------- Order Place ----------');
+      print('----------- Order Place ----------');
       print(response.data.toString());
       throw new Exception(response.data);
     }
   } on d.DioError catch (e) {
-     print('----------- Order Place ----------');
-     print(e.toString());
+    print('----------- Order Place ----------');
+    print(e.toString());
 
     throw handleError(e);
   }
@@ -107,5 +114,16 @@ Future<CommonResponse> orderCancelRequest(int orderId) async {
     }
   } on d.DioException catch (e) {
     throw handleError(e);
+  }
+}
+
+Future markVacation({required String deliveryProductId}) async {
+  try {
+    final response =
+        await HttpWrapper.getRequest('order/mark-vacation/$deliveryProductId');
+   final data = jsonDecode(response.body);
+    return data;
+  } catch (e) {
+    rethrow;
   }
 }

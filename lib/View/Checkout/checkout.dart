@@ -4,6 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
+import 'package:logger/logger.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:water/Utils/ThemeData/themeColors.dart';
@@ -157,6 +158,13 @@ class _CheckoutState extends StateMVC<Checkout> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  final _customerName = TextEditingController();
+  final _flatNo = TextEditingController();
+  final _wing = TextEditingController();
+  final _locality = TextEditingController();
+  final _streetName = TextEditingController();
+  final _city = TextEditingController();
+  final _pinCode = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -219,6 +227,14 @@ class _CheckoutState extends StateMVC<Checkout> {
                                           PickResult? result,
                                           state,
                                           isSearchBarFocused) {
+                                        Logger().w({
+                                          result,
+                                          state,
+                                          isSearchBarFocused,
+                                          _addressType!,
+                                          lang,
+                                          size
+                                        });
                                         return selectPlaceWidgetBuild(
                                             context,
                                             result,
@@ -542,37 +558,30 @@ class _CheckoutState extends StateMVC<Checkout> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PlacePicker(
-                          apiKey: ProjectKeys.googlePlacePickerKey,
-                          pinBuilder: (context, state) {
-                            return Icon(Icons.location_pin,
-                                color: MyColor.commonColorSet2, size: 40);
-                          },
-                          selectInitialPosition: true,
-                          selectedPlaceWidgetBuilder: (context,
-                              PickResult? result, state, isSearchBarFocused) {
-                            return selectPlaceWidgetBuild(
-                                context,
-                                result,
-                                state,
-                                isSearchBarFocused,
-                                _addressType!,
-                                lang,
-                                size,
-                                addressItem);
-                          }, // Put YOUR OWN KEY here.
-                          onPlacePicked: (result) {},
-                          initialPosition: LatLng(
-                              double.parse(addressItem!.latitude!),
-                              double.parse(addressItem.longitude!)),
-                          useCurrentLocation: true,
-                        ),
-                      ),
-                    );
+                  onTap: () async {
+                    if (addressItem != null) {
+                      _addressTitle.text = addressItem.address ?? '';
+                      _noteController.text = addressItem.note ?? '';
+                      _selectedAddress =
+                          addressTypeList.indexOf(addressItem.type!);
+                      _city.text = addressItem.city ?? '';
+                      _customerName.text = addressItem.customerName ?? '';
+                      _streetName.text = addressItem.streetName ?? '';
+                      _flatNo.text = addressItem.flatNo ?? '';
+                      _wing.text = addressItem.wing ?? '';
+                      _pinCode.text = addressItem.zipcode ?? '';
+                      _locality.text = addressItem.locality ?? '';
+                    }
+                    setState(() {});
+
+                    Future _future = addAddressBottomSheet(
+                        isEdit: true,
+                        deliveryNotes: _deliveryInstructions,
+                        addressType: addressTypeList,
+                        size: size,
+                        lang: lang,
+                        pickResult: null,
+                        addressItem: addressItem);
                   },
                   child: Container(
                     width: 45,
@@ -627,6 +636,7 @@ class _CheckoutState extends StateMVC<Checkout> {
   }
 
   Future<dynamic> addAddressBottomSheet({
+    required bool isEdit,
     required List addressType,
     required Size size,
     required lang,
@@ -756,11 +766,35 @@ class _CheckoutState extends StateMVC<Checkout> {
                             SizedBox(
                               height: 13,
                             ),
+                            kCustomLabel(context, lang, 'Customer Name'),
+                            SizedBox(
+                              height: 7,
+                            ),
+                            Container(
+                              height: 50,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: dark(context)
+                                    ? Color.fromRGBO(63, 76, 84, 1)
+                                    : MyColor.mainColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                              ),
+                              child: TextField(
+                                controller: _customerName,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 13,
+                            ),
                             Row(
                               children: [
                                 Text(
-                                  UtilsHelper.getString(
-                                      context, 'address_title'),
+                                  "Address",
                                   style: Theme.of(context)
                                       .textTheme
                                       .displaySmall
@@ -794,6 +828,156 @@ class _CheckoutState extends StateMVC<Checkout> {
                               ),
                               child: TextField(
                                 controller: _addressTitle,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 13,
+                            ),
+                            kCustomLabel(context, lang, 'Flat no'),
+                            SizedBox(
+                              height: 7,
+                            ),
+                            Container(
+                              height: 50,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: dark(context)
+                                    ? Color.fromRGBO(63, 76, 84, 1)
+                                    : MyColor.mainColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                              ),
+                              child: TextField(
+                                controller: _flatNo,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 13,
+                            ),
+                            kCustomLabel(context, lang, 'Wing'),
+                            SizedBox(
+                              height: 7,
+                            ),
+                            Container(
+                              height: 50,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: dark(context)
+                                    ? Color.fromRGBO(63, 76, 84, 1)
+                                    : MyColor.mainColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                              ),
+                              child: TextField(
+                                controller: _wing,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 13,
+                            ),
+                            kCustomLabel(context, lang, 'Street name'),
+                            SizedBox(
+                              height: 7,
+                            ),
+                            Container(
+                              height: 50,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: dark(context)
+                                    ? Color.fromRGBO(63, 76, 84, 1)
+                                    : MyColor.mainColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                              ),
+                              child: TextField(
+                                controller: _streetName,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 13,
+                            ),
+                            kCustomLabel(context, lang, 'Locality'),
+                            SizedBox(
+                              height: 7,
+                            ),
+                            Container(
+                              height: 50,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: dark(context)
+                                    ? Color.fromRGBO(63, 76, 84, 1)
+                                    : MyColor.mainColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                              ),
+                              child: TextField(
+                                controller: _locality,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 13,
+                            ),
+                            kCustomLabel(context, lang, 'City'),
+                            SizedBox(
+                              height: 7,
+                            ),
+                            Container(
+                              height: 50,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: dark(context)
+                                    ? Color.fromRGBO(63, 76, 84, 1)
+                                    : MyColor.mainColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                              ),
+                              child: TextField(
+                                controller: _city,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 13,
+                            ),
+                            kCustomLabel(context, lang, 'Pincode'),
+                            SizedBox(
+                              height: 7,
+                            ),
+                            Container(
+                              height: 50,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: dark(context)
+                                    ? Color.fromRGBO(63, 76, 84, 1)
+                                    : MyColor.mainColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                              ),
+                              child: TextField(
+                                controller: _pinCode,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                 ),
@@ -944,42 +1128,86 @@ class _CheckoutState extends StateMVC<Checkout> {
                               child: commonButton(
                                 onPress: () async {
                                   FocusScope.of(context).unfocus();
-                                  if (_addressTitle.text.trim().isNotEmpty) {
-                                    Placemark placemark =
-                                        await getAddressFromLatLong(
-                                            pickResult!.geometry!.location.lat,
-                                            pickResult.geometry!.location.lng);
-                                    print(placemark);
+                                  Placemark placemark;
+                                  String? googleAddress =
+                                      addressItem?.getFormattedAddress();
+                                  Logger().w(googleAddress);
+                                  if (isEdit) {
+                                    placemark = await getAddressFromLatLong(
+                                        double.parse(addressItem!.latitude!),
+                                        double.parse(addressItem.longitude!));
                                     AddressItem _addressItem = AddressItem(
-                                      id: addressItem == null
-                                          ? 0
-                                          : addressItem.id,
+                                      id: addressItem.id,
 
                                       /// for add it's 0 & for update it's 1.
                                       type: addressTypeList[_selectedAddress],
                                       address: _addressTitle.text.trim(),
-                                      googleAddress:
-                                          pickResult.formattedAddress,
-                                      // googleAddress: placemark.street,
+                                      latitude: addressItem.latitude,
+                                      longitude: addressItem.longitude,
+                                      googleAddress: googleAddress,
                                       note: _noteController.text.trim(),
-                                      city: placemark.subAdministrativeArea,
+                                      city: _city.text,
                                       state: placemark.locality,
                                       country: placemark.country,
-                                      zipcode: placemark.postalCode,
-                                      latitude: pickResult
-                                          .geometry!.location.lat
-                                          .toString(),
-                                      longitude: pickResult
-                                          .geometry!.location.lng
-                                          .toString(),
+                                      zipcode: _pinCode.text,
+
+                                      customerName: _customerName.text,
+                                      flatNo: _flatNo.text,
+                                      wing: _wing.text,
+                                      streetName: _streetName.text,
+                                      locality: _locality.text,
+
                                       isDefault: 0, // TODO: for default value
                                     );
                                     con.addressAddUpdateApi(
                                         context, _addressItem);
                                   } else {
-                                    commonAlertNotification("Error",
-                                        message: UtilsHelper.getString(
-                                            context, "enter_address_title"));
+                                    if (_addressTitle.text.trim().isNotEmpty) {
+                                      placemark = await getAddressFromLatLong(
+                                          pickResult!.geometry!.location.lat,
+                                          pickResult.geometry!.location.lng);
+
+                                      print(placemark);
+
+                                      AddressItem _addressItem = AddressItem(
+                                        id: addressItem == null
+                                            ? 0
+                                            : addressItem.id,
+
+                                        /// for add it's 0 & for update it's 1.
+                                        type: addressTypeList[_selectedAddress],
+                                        address: _addressTitle.text.trim(),
+
+                                        googleAddress:
+                                            pickResult.formattedAddress,
+                                        // googleAddress: placemark.street,
+                                        note: _noteController.text.trim(),
+                                        city: _city.text,
+                                        state: placemark.locality,
+                                        country: placemark.country,
+                                        zipcode: _pinCode.text,
+                                        latitude: pickResult
+                                            .geometry!.location.lat
+                                            .toString(),
+
+                                        customerName: _customerName.text,
+                                        flatNo: _flatNo.text,
+                                        wing: _wing.text,
+                                        streetName: _streetName.text,
+                                        locality: _locality.text,
+
+                                        longitude: pickResult
+                                            .geometry!.location.lng
+                                            .toString(),
+                                        isDefault: 0, // TODO: for default value
+                                      );
+                                      con.addressAddUpdateApi(
+                                          context, _addressItem);
+                                    } else {
+                                      commonAlertNotification("Error",
+                                          message: UtilsHelper.getString(
+                                              context, "enter_address_title"));
+                                    }
                                   }
                                 },
                                 prefixPath: 'assets/icon_arrow.svg',
@@ -1014,6 +1242,24 @@ class _CheckoutState extends StateMVC<Checkout> {
           ),
         );
       },
+    );
+  }
+
+  Row kCustomLabel(BuildContext context, lang, key) {
+    return Row(
+      children: [
+        Text(
+          key,
+          style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                fontFamily: !UtilsHelper.rightHandLang.contains(lang)
+                    ? UtilsHelper.wr_default_font_family
+                    : UtilsHelper.the_sans_font_family,
+                color: dark(context) ? Colors.white : MyColor.commonColorSet1,
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+              ),
+        ),
+      ],
     );
   }
 
@@ -1056,14 +1302,23 @@ class _CheckoutState extends StateMVC<Checkout> {
                   ),
                   SizedBox(height: 10),
                   commonButton(
-                    onPress: () {
+                    onPress: () async {
                       if (addressItem != null) {
                         _addressTitle.text = addressItem.address!;
                         _noteController.text = addressItem.note!;
                         _selectedAddress =
                             addressTypeList.indexOf(addressItem.type!);
                       }
+                      Placemark placemark = await getAddressFromLatLong(
+                          result.geometry!.location.lat,
+                          result.geometry!.location.lng);
+                      setState(() {
+                        _pinCode.text = placemark.postalCode ?? '';
+                        _streetName.text = placemark.street ?? '';
+                        _locality.text = placemark.locality ?? '';
+                      });
                       Future _future = addAddressBottomSheet(
+                          isEdit: false,
                           deliveryNotes: _deliveryInstructions,
                           addressType: _addType,
                           size: size,

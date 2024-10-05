@@ -173,13 +173,13 @@ class AuthController extends ControllerMVC {
         /// print(e);
         hideLoader();
         commonAlertNotification("Error",
-            message: UtilsHelper.getString(null, "something_went_wrong"));
+            message: "Incorrect OTP! \nPlease try again later");
       }
     }).catchError((e) {
       hideLoader();
       print(e);
       commonAlertNotification("Error",
-          message: UtilsHelper.getString(null, "something_went_wrong"));
+          message: "Incorrect OTP! \nPlease try again later");
     }).whenComplete(() {});
   }
 

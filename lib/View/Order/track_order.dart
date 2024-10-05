@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:water/Utils/ThemeData/themeColors.dart';
 import 'package:water/Utils/UtilHelper.dart';
@@ -484,6 +485,38 @@ class _TrackOrderState extends StateMVC<TrackOrder> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
+                                    Row(
+                                      children: [
+                                        Spacer(),
+                                        GestureDetector(
+                                          onTap: () async {
+                                            await con.markProductVacation(
+                                                deliveryProductId:
+                                                    _productOrderList
+                                                        .first
+                                                        .productDeliverys!
+                                                        .first
+                                                        .id!
+                                                        .toString());
+                                            con.getOrderDetailApi(
+                                                widget.orderId);
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                color: MyColor.commonColorSet2),
+                                            child: Text(
+                                              'Vacation',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 5),
                                     Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
